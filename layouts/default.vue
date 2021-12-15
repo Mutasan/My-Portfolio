@@ -1,12 +1,14 @@
 <template>
   <v-app>
+    <Header />
     <Nuxt />
   </v-app>
 </template>
 
 <script>
+import Header from '~/components/header.vue'
 export default {
-  name: 'DefaultLayout',
+  components: { Header },
   data() {
     return {
       clipped: false,
