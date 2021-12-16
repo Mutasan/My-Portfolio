@@ -11,8 +11,10 @@
         <span id="content" class="content">
           <div>
             <v-img height="100vh" src="bike.jpg" class="content__back" />
+            <h1 class="content__title">Takumi Kitamura's Portfolio</h1>
             <v-img src="me.png" class="content__me" />
             <!-- 矢印 -->
+            <span class="content__scroll">SCROLL</span>
             <div class="content__arrow" />
           </div>
           <div></div>
@@ -68,7 +70,7 @@ export default Vue.extend({
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 100vh;
   color: #fff;
 }
 
@@ -105,6 +107,18 @@ export default Vue.extend({
   content: '';
 }
 
+@keyframes fuwafuwa {
+  0% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+
 @keyframes tooltipShow {
   from {
     opacity: 0;
@@ -134,11 +148,33 @@ export default Vue.extend({
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
   }
+  &__scroll {
+    position: absolute;
+    animation: fuwafuwa 2s infinite;
+    backface-visibility: hidden;
+    color: #eee;
+    font-size: 36px;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+  &__title {
+    position: absolute;
+    color: #eee;
+    font-size: 48px;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
   // 矢印
   &__arrow {
     position: absolute;
     bottom: 5%;
-    left: 50%;
+    left: 49%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
