@@ -6,7 +6,7 @@
         <span>My Portfolio</span>
       </span>
     </div>
-    <div v-if="isShowContents">
+    <div>
       <span id="content" class="content">
         <img src="https://placehold.jp/480x360.png" />
       </span>
@@ -14,15 +14,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 
 type Data = {
-  isShowContents: Boolean,
+  isShowContents: Boolean
 }
 
 export default Vue.extend({
-  data() {
+  data(): Data {
     return {
       isShowContents: false,
     }
@@ -35,14 +35,13 @@ export default Vue.extend({
     const content = document.getElementById('content')
 
     setTimeout(() => {
-      background.classList.add(VISIBLE_CLASSNAME)
+      background!.classList.add(VISIBLE_CLASSNAME)
       setTimeout(() => {
-        background.classList.add(INVISIBLE_CLASSNAME)
-        background.classList.remove(VISIBLE_CLASSNAME)
+        background!.classList.add(INVISIBLE_CLASSNAME)
+        background!.classList.remove(VISIBLE_CLASSNAME)
         setTimeout(() => {
-          this.isShowContents = true
-          background.classList.remove('background')
-          content.classList.add(VISIBLE_CLASSNAME)
+          background!.classList.remove('background')
+          content!.classList.add(VISIBLE_CLASSNAME)
         }, TIMEOUT * 2)
       }, TIMEOUT * 2)
     }, TIMEOUT)
@@ -87,10 +86,12 @@ export default Vue.extend({
 
 .content {
   opacity: 0;
+  visibility: hidden;
   transition: 1s;
 }
 
 .content.-visible {
+  visibility: visible;
   opacity: 1;
   color: black;
 }
