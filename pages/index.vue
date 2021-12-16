@@ -1,32 +1,58 @@
 <template>
-  <div id="bg" class="bg">
-    <span class="title">
-      <span>Welcome to</span>
-      <span>My Portfolio</span>
-    </span>
+  <div id="background" class="background">
+    <div>
+      <span class="title">
+        <span>Welcome to</span>
+        <span>My Portfolio</span>
+      </span>
+    </div>
+    <div v-if="isShowContents">
+      <span id="content" class="content">
+        <img src="https://placehold.jp/480x360.png" />
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 
+type Data = {
+  isShowContents: Boolean,
+}
+
 export default Vue.extend({
-  components: {},
+  data() {
+    return {
+      isShowContents: false,
+    }
+  },
   mounted() {
-    const CLASSNAME = '-visible'
+    const VISIBLE_CLASSNAME = '-visible'
+    const INVISIBLE_CLASSNAME = '-invisible'
     const TIMEOUT = 1000
-    const target = document.getElementById('bg')
+    const background = document.getElementById('background')
+    const content = document.getElementById('content')
 
     setTimeout(() => {
-      target.classList.add(CLASSNAME)
+      background.classList.add(VISIBLE_CLASSNAME)
+      setTimeout(() => {
+        background.classList.add(INVISIBLE_CLASSNAME)
+        background.classList.remove(VISIBLE_CLASSNAME)
+        setTimeout(() => {
+          this.isShowContents = true
+          background.classList.remove('background')
+          content.classList.add(VISIBLE_CLASSNAME)
+        }, TIMEOUT * 2)
+      }, TIMEOUT * 2)
     }, TIMEOUT)
   },
 })
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
-.bg {
+.background {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,21 +63,36 @@ export default Vue.extend({
   color: #fff;
 }
 
-.bg.-visible:before {
+.background.-visible:before {
   transform: translate(0, 0);
 }
 
-.bg:before {
+.background.-invisible:before {
+  transition: 1.5s;
+  transform: translate(0, -100%);
+}
+
+.background:before {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #a33e46;
+  background-color: rgb(190, 180, 72);
   transform: translate(0, 100%);
   transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.6s;
   content: '';
+}
+
+.content {
+  opacity: 0;
+  transition: 1s;
+}
+
+.content.-visible {
+  opacity: 1;
+  color: black;
 }
 
 /* テキストのスタイル */
@@ -82,8 +123,14 @@ export default Vue.extend({
   transition-delay: 0.45s;
 }
 
-.bg.-visible .title span {
+.background.-visible .title span {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+.background.-invisible .title span {
+  transform: translate(0, 0);
+  transition: 1s;
+  visibility: hidden;
 }
 </style>
