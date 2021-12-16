@@ -1,15 +1,23 @@
 <template>
-  <div id="background" class="background">
-    <div>
-      <span class="title">
-        <span>Welcome to</span>
-        <span>My Portfolio</span>
-      </span>
-    </div>
-    <div>
-      <span id="content" class="content">
-        <img src="https://placehold.jp/480x360.png" />
-      </span>
+  <div class="wrapper">
+    <div id="background" class="background">
+      <div>
+        <span id="title" class="title">
+          <span>Welcome to</span>
+          <span>My Portfolio</span>
+        </span>
+      </div>
+      <div>
+        <span id="content" class="content">
+          <div>
+            <v-img height="100vh" src="bike.jpg" class="content__back" />
+            <v-img src="me.png" class="content__me" />
+            <!-- 矢印 -->
+            <div class="content__arrow" />
+          </div>
+          <div></div>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -33,6 +41,7 @@ export default Vue.extend({
     const TIMEOUT = 1000
     const background = document.getElementById('background')
     const content = document.getElementById('content')
+    const title = document.getElementById('title')
 
     setTimeout(() => {
       background!.classList.add(VISIBLE_CLASSNAME)
@@ -40,6 +49,7 @@ export default Vue.extend({
         background!.classList.add(INVISIBLE_CLASSNAME)
         background!.classList.remove(VISIBLE_CLASSNAME)
         setTimeout(() => {
+          title!.classList.add(INVISIBLE_CLASSNAME)
           background!.classList.remove('background')
           content!.classList.add(VISIBLE_CLASSNAME)
         }, TIMEOUT * 2)
@@ -71,6 +81,17 @@ export default Vue.extend({
   transform: translate(0, -100%);
 }
 
+.background.-visible .title span {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.background.-invisible .title span {
+  transform: translate(0, 0);
+  transition: 1s;
+  visibility: hidden;
+}
+
 .background:before {
   display: block;
   position: absolute;
@@ -96,11 +117,42 @@ export default Vue.extend({
 
 .content {
   display: none;
+  position: relative;
+  &__back {
+    width: 100vw;
+    margin: 0 auto;
+    filter: brightness(30%);
+  }
+  &__me {
+    position: absolute;
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+  // 矢印
+  &__arrow {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 5px solid;
+    border-color: transparent transparent #fff #fff;
+    transform: rotate(-45deg);
+  }
 }
 
 .content.-visible {
   display: block;
-  animation: tooltipShow 0.3s;
+  animation: tooltipShow 0.8s;
   color: black;
 }
 
@@ -112,6 +164,9 @@ export default Vue.extend({
   text-align: center;
 }
 
+.title.-invisible {
+  display: none;
+}
 .title span {
   display: block;
   opacity: 0;
@@ -131,15 +186,9 @@ export default Vue.extend({
   font-size: 48px;
   transition-delay: 0.45s;
 }
-
-.background.-visible .title span {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.background.-invisible .title span {
-  transform: translate(0, 0);
-  transition: 1s;
-  visibility: hidden;
-}
+// @media screen and (min-width: 768px) {
+//   .wrapper {
+//     margin: 0 80px;
+//   }
+// }
 </style>

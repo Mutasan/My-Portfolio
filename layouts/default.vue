@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header />
+    <!-- <Header /> -->
     <Nuxt />
   </v-app>
 </template>
