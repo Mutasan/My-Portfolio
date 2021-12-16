@@ -84,15 +84,23 @@ export default Vue.extend({
   content: '';
 }
 
+@keyframes tooltipShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .content {
-  opacity: 0;
-  visibility: hidden;
-  transition: 1s;
+  display: none;
 }
 
 .content.-visible {
-  visibility: visible;
-  opacity: 1;
+  display: block;
+  animation: tooltipShow 0.3s;
   color: black;
 }
 
