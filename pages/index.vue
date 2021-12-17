@@ -13,11 +13,13 @@
             <v-img height="100vh" src="bike.jpg" class="content__back" />
             <h1 class="content__title">Takumi Kitamura's Portfolio</h1>
             <v-img src="me.png" class="content__me" />
-            <!-- 矢印 -->
-            <span class="content__scroll">SCROLL</span>
-            <div class="content__arrow" />
           </div>
-          <div></div>
+          <div>
+            <button class="content__aboutme" @click="clickedAboutMe">
+              ABOUT ME
+            </button>
+            <button class="content__contact">CONTACT</button>
+          </div>
         </span>
       </div>
     </div>
@@ -27,15 +29,11 @@
 <script lang="ts">
 import Vue from 'vue'
 
-type Data = {
-  isShowContents: Boolean
-}
+type Data = {}
 
 export default Vue.extend({
   data(): Data {
-    return {
-      isShowContents: false,
-    }
+    return {}
   },
   mounted() {
     const VISIBLE_CLASSNAME = '-visible'
@@ -57,6 +55,11 @@ export default Vue.extend({
         }, TIMEOUT * 2)
       }, TIMEOUT * 2)
     }, TIMEOUT)
+  },
+  methods: {
+    clickedAboutMe() {
+      this.$router.push('./aboutMe')
+    },
   },
 })
 </script>
@@ -107,18 +110,6 @@ export default Vue.extend({
   content: '';
 }
 
-@keyframes fuwafuwa {
-  0% {
-    transform: translateY(-50px);
-  }
-  50% {
-    transform: translateY(-30px);
-  }
-  100% {
-    transform: translateY(-50px);
-  }
-}
-
 @keyframes tooltipShow {
   from {
     opacity: 0;
@@ -132,10 +123,44 @@ export default Vue.extend({
 .content {
   display: none;
   position: relative;
+  &__aboutme {
+    position: absolute;
+    color: white;
+    font-size: 48px;
+    font-family: 'Josefin Sans', sans-serif;
+    bottom: 15%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    &:hover {
+      transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s;
+      transform: scale(1.2) translate(-40%, -40%);
+    }
+  }
   &__back {
     width: 100vw;
     margin: 0 auto;
     filter: brightness(30%);
+  }
+  &__contact {
+    position: absolute;
+    color: white;
+    font-size: 48px;
+    font-family: 'Josefin Sans', sans-serif;
+    bottom: 15%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    &:hover {
+      transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s;
+      transform: scale(1.2) translate(-40%, -40%);
+    }
+    &:hover {
+      transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s;
+      transform: scale(1.2) translate(-40%, -40%);
+    }
   }
   &__me {
     position: absolute;
@@ -143,18 +168,6 @@ export default Vue.extend({
     width: 320px;
     height: 320px;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-  }
-  &__scroll {
-    position: absolute;
-    animation: fuwafuwa 2s infinite;
-    backface-visibility: hidden;
-    color: #eee;
-    font-size: 36px;
-    bottom: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
@@ -169,20 +182,6 @@ export default Vue.extend({
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-  }
-  // 矢印
-  &__arrow {
-    position: absolute;
-    bottom: 5%;
-    left: 49%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    width: 30px;
-    height: 30px;
-    border: 5px solid;
-    border-color: transparent transparent #fff #fff;
-    transform: rotate(-45deg);
   }
 }
 
