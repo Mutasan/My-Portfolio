@@ -38,7 +38,7 @@ export default Vue.extend({
   mounted() {
     const VISIBLE_CLASSNAME = '-visible'
     const INVISIBLE_CLASSNAME = '-invisible'
-    const TIMEOUT = 1000
+    const TIMEOUT = 10
     const background = document.getElementById('background')
     const content = document.getElementById('content')
     const title = document.getElementById('title')
@@ -58,7 +58,11 @@ export default Vue.extend({
   },
   methods: {
     clickedAboutMe() {
-      this.$router.push('./aboutMe')
+      const aboutMe = document.getElementsByClassName('content__aboutme')
+      aboutMe[0].classList.add('-expand')
+      setTimeout(() => {
+        this.$router.push('./aboutMe')
+      }, 2000)
     },
   },
 })
@@ -120,6 +124,38 @@ export default Vue.extend({
   }
 }
 
+@keyframes beforePush {
+  0% {
+  }
+  50% {
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    scale: 1;
+    opacity: 1;
+  }
+  90% {
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-20%, -20%);
+    -webkit-transform: translate(-20%, -20%);
+    -ms-transform: translate(-20%, -20%);
+    opacity: 1;
+    scale: 3;
+  }
+  100% {
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-20%, -20%);
+    -webkit-transform: translate(-20%, -20%);
+    -ms-transform: translate(-20%, -20%);
+    opacity: 0;
+    scale: 3;
+  }
+}
+
 .content {
   display: none;
   position: relative;
@@ -133,6 +169,9 @@ export default Vue.extend({
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
+    &.-expand {
+      animation: beforePush 2s forwards;
+    }
     &:hover {
       transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s;
       transform: scale(1.2) translate(-40%, -40%);
